@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR Influencer Outreach Database</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #e9ecef;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --primary: #0d6efd;
+            --primary-hover: #0b5ed7;
+            --status-to-contact: #fff3cd;
+            --status-to-contact-text: #856404;
+            --status-contacted: #cff4fc;
+            --status-contacted-text: #055160;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 40px 20px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Top Data Entry Panel */
+        .form-panel {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .form-panel h2 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) auto;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group select {
+            height: 38px;
+            padding: 0 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            background-color: #fff;
+            transition: border-color 0.15s ease-in-out;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            height: 38px;
+            padding: 0 28px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+            white-space: nowrap;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Main Data Spreadsheet Grid */
+        .table-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow-x: auto;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--text-muted);
+            font-weight: 700;
+            padding: 14px 16px;
+            border-bottom: 2px solid var(--border-color);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background-color: #fdfdfd;
+        }
+
+        .profile-link {
+            color: var(--primary);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .profile-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Open Editable Grid Fields */
+        .cell-input {
+            width: 100%;
+            height: 32px;
+            padding: 0 8px;
+            border: 1px solid transparent;
+            background-color: transparent;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-main);
+        }
+
+        .cell-input:hover {
+            border-color: #dee2e6;
+            background-color: #fff;
+        }
+
+        .cell-input:focus {
+            border-color: var(--primary);
+            background-color: #fff;
+            outline: none;
+        }
+
+        .cell-select {
+            width: 100%;
+            height: 32px;
+            padding: 0 4px;
+            border: 1px solid transparent;
+            background-color: transparent;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .cell-select:hover {
+            border-color: #dee2e6;
+            background-color: #fff;
+        }
+
+        .cell-select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        /* Status Pills Formatting */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .status-to-contact {
+            background-color: var(--status-to-contact);
+            color: var(--status-to-contact-text);
+        }
+
+        .status-contacted {
+            background-color: var(--status-contacted);
+            color: var(--status-contacted-text);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Influencer Outreach Master Log</h1>
+        <p>Internal centralized database tracking for company PR communications and workflow management</p>
+    </header>
+
+    <!-- Top Profile Entry Form -->
+    <div class="form-panel">
+        <h2>Add Profile</h2>
+        <form id="influencerForm" class="form-grid">
+            <div class="form-group">
+                <label for="infName">Influencer Name</label>
+                <input type="text" id="infName" placeholder="Username or actual name" required>
+            </div>
+            <div class="form-group">
+                <label for="infLink">Profile Link</label>
+                <input type="url" id="infLink" placeholder="https://instagram.com/..." required>
+            </div>
+            <div class="form-group">
+                <label for="sourcerName">Sourcer Name</label>
+                <input type="text" id="sourcerName" placeholder="PR Rep Name" required>
+            </div>
+            <div class="form-group">
+                <label for="infContact">Contact Info (Optional)</label>
+                <input type="text" id="infContact" placeholder="Phone, WhatsApp or email">
+            </div>
+            <div class="form-group">
+                <label for="initialStatus">Outreach Status</label>
+                <select id="initialStatus">
+                    <option value="To Contact">To Contact</option>
+                    <option value="Contacted">Contacted</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Add Profile</button>
+        </form>
+    </div>
+
+    <!-- Master Spreadsheet Grid Container -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Influencer Name</th>
+                    <th style="width: 25%;">Profile Link</th>
+                    <th style="width: 15%;">Sourcer</th>
+                    <th style="width: 13%;">Outreach Status</th>
+                    <th style="width: 14%;">Contact Info (Open Field)</th>
+                    <th style="width: 13%;">Follow-Up Outcome</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Content generated via JavaScript engine -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Standard mock framework data initialization
+    const baselineMockData = [
+        {
+            id: 1,
+            name: "Alpha Creator",
+            link: "https://instagram.com/alphacreator",
+            sourcer: "Sarah Jenkins",
+            status: "Contacted",
+            contact: "+1-555-0192",
+            outcome: "Accepted"
+        },
+        {
+            id: 2,
+            name: "Zen Design Studio",
+            link: "https://instagram.com/zendesign",
+            sourcer: "David Lee",
+            status: "To Contact",
+            contact: "",
+            outcome: "Pending"
+        }
+    ];
+
+    // Read state from the local browser storage or seed default matrix
+    let masterDataMatrix = JSON.parse(localStorage.getItem('prInfluencerLogs')) || baselineMockData;
+
+    function commitStateToStorage() {
+        localStorage.setItem('prInfluencerLogs', JSON.stringify(masterDataMatrix));
+    }
+
+    const tableBody = document.getElementById('tableBody');
+    const influencerForm = document.getElementById('influencerForm');
+
+    // Grid rendering sub-routine
+    function renderDatabaseGrid(data) {
+        tableBody.innerHTML = '';
+        data.forEach(item => {
+            const rowElement = document.createElement('tr');
+            const statusStyleClass = item.status === 'To Contact' ? 'status-to-contact' : 'status-contacted';
+
+            rowElement.innerHTML = `
+                <td><strong>${escapeDataStrings(item.name)}</strong></td>
+                <td><a href="${escapeDataStrings(item.link)}" target="_blank" class="profile-link">${escapeDataStrings(item.link)}</a></td>
+                <td>${escapeDataStrings(item.sourcer)}</td>
+                <td>
+                    <select class="cell-select status-badge ${statusStyleClass}" onchange="modifyRowStatus(${item.id}, this.value)">
+                        <option value="To Contact" ${item.status === 'To Contact' ? 'selected' : ''}>To Contact</option>
+                        <option value="Contacted" ${item.status === 'Contacted' ? 'selected' : ''}>Contacted</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="cell-input" value="${escapeDataStrings(item.contact)}" placeholder="Type contact detail..." oninput="modifyRowContact(${item.id}, this.value)">
+                </td>
+                <td>
+                    <select class="cell-select" onchange="modifyRowOutcome(${item.id}, this.value)">
+                        <option value="Pending" ${item.outcome === 'Pending' ? 'selected' : ''}>Pending</option>
+                        <option value="Accepted" ${item.outcome === 'Accepted' ? 'selected' : ''}>Accepted</option>
+                        <option value="Rejected" ${item.outcome === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                    </select>
+                </td>
+            `;
+            tableBody.appendChild(rowElement);
+        });
+    }
+
+    // Direct string array assignment on input to preserve focus during continuous typing
+    function modifyRowContact(id, textInput) {
+        const targetRecord = masterDataMatrix.find(record => record.id === id);
+        if (targetRecord) {
+            targetRecord.contact = textInput;
+            commitStateToStorage();
+        }
+    }
+
+    function modifyRowStatus(id, selectedValue) {
+        const targetRecord = masterDataMatrix.find(record => record.id === id);
+        if (targetRecord) {
+            targetRecord.status = selectedValue;
+            commitStateToStorage();
+            renderDatabaseGrid(masterDataMatrix); // Re-renders to apply corresponding badge color rules
+        }
+    }
+
+    function modifyRowOutcome(id, selectedValue) {
+        const targetRecord = masterDataMatrix.find(record => record.id === id);
+        if (targetRecord) {
+            targetRecord.outcome = selectedValue;
+            commitStateToStorage();
+        }
+    }
+
+    // Form pipeline submission interceptor
+    influencerForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const generatedRecord = {
+            id: Date.now(), 
+            name: document.getElementById('infName').value,
+            link: document.getElementById('infLink').value,
+            sourcer: document.getElementById('sourcerName').value,
+            contact: document.getElementById('infContact').value,
+            status: document.getElementById('initialStatus').value,
+            outcome: "Pending"
+        };
+
+        masterDataMatrix.unshift(generatedRecord); // Prepend new records to the top row
+        commitStateToStorage();
+        renderDatabaseGrid(masterDataMatrix);
+        
+        // Reset specific UI components while keeping the Sourcer Name populated for faster workflows
+        document.getElementById('infName').value = '';
+        document.getElementById('infLink').value = '';
+        document.getElementById('infContact').value = '';
+    });
+
+    // Sanitization utility to completely lock out XSS vectors inside inputs
+    function escapeDataStrings(rawString) {
+        if (!rawString) return "";
+        return String(rawString).replace(/&/g, "&amp;")
+                                .replace(/</g, "&lt;")
+                                .replace(/>/g, "&gt;")
+                                .replace(/"/g, "&quot;")
+                                .replace(/'/g, "&#039;");
+    }
+
+    // Run core engine execution
+    renderDatabaseGrid(masterDataMatrix);
+</script>
+
+</body>
+</html>
