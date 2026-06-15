@@ -1,24 +1,25 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PR Influencer Outreach Database</title>
+    <title>Influencer Outreach Log</title>
     <style>
         :root {
-            --bg-color: #f9fafb;
+            --bg-color: #fafafa;
             --card-bg: #ffffff;
-            --border-color: #e5e7eb;
-            --border-focus: #4f46e5;
-            --text-main: #111827;
-            --text-muted: #6b7280;
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
+            --border-color: #e4e4e7;
+            --border-focus: #18181b;
+            --text-main: #09090b;
+            --text-muted: #71717a;
+            --primary: #18181b;
+            --primary-hover: #27272a;
             
-            --status-to-contact: #ffedd5;
-            --status-to-contact-text: #b45309;
+            --status-to-contact: #fef3c7;
+            --status-to-contact-text: #d97706;
             --status-contacted: #dbeafe;
-            --status-contacted-text: #1d4ed8;
+            --status-contacted-text: #2563eb;
         }
 
         * {
@@ -27,101 +28,114 @@
             padding: 0;
         }
 
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        html, body {
+            height: 100%;
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding: 50px 24px;
-            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
 
+        body {
+            font-family: "Neue Haas Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow: hidden;
+        }
+
         .container {
-            max-width: 1440px;
+            width: 100%;
+            max-width: 1600px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         header {
-            margin-bottom: 32px;
+            margin-bottom: 16px;
+            flex: 0 0 auto;
         }
 
         header h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--text-main);
-            letter-spacing: -0.025em;
+            letter-spacing: -0.03em;
         }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-top: 6px;
-        }
-
+        /* 30% Top Dashboard Card Configuration */
         .form-panel {
+            flex: 0 0 25%;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 32px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .form-panel h2 {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
         }
 
+        /* Highly Horizontal Layout Matrix */
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) auto;
-            gap: 16px;
+            grid-template-columns: repeat(5, minmax(140px, 1fr)) auto;
+            gap: 12px;
             align-items: flex-end;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .form-group label {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--text-main);
+            letter-spacing: -0.01em;
         }
 
         .form-group input, .form-group select {
-            height: 40px;
-            padding: 0 14px;
+            height: 36px;
+            padding: 0 12px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
             background-color: #fff;
             color: var(--text-main);
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
-            transition: all 0.2s ease-in-out;
+            font-family: inherit;
+            transition: all 0.15s ease-in-out;
         }
 
         .form-group input:focus, .form-group select:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.05);
         }
 
         .btn-submit {
-            height: 40px;
-            padding: 0 32px;
+            height: 36px;
+            padding: 0 24px;
             background-color: var(--primary);
             color: white;
             border: none;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
+            font-family: inherit;
             cursor: pointer;
             transition: background-color 0.15s ease-in-out;
             white-space: nowrap;
@@ -131,34 +145,43 @@
             background-color: var(--primary-hover);
         }
 
+        /* 70% Bottom Spreadsheet Card Configuration */
         .table-container {
+            flex: 1 1 70%;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
+            overflow-y: auto;
             overflow-x: auto;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01), 0 2px 4px -2px rgba(0, 0, 0, 0.01);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-size: 14px;
+            font-size: 13px;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         th {
-            background-color: #f9fafb;
+            background-color: #fcfcfc;
             color: var(--text-muted);
             font-weight: 600;
-            padding: 14px 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid var(--border-color);
             text-transform: uppercase;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 0.05em;
         }
 
         td {
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-bottom: 1px solid var(--border-color);
             vertical-align: middle;
             color: var(--text-main);
@@ -169,11 +192,11 @@
         }
 
         tr:hover {
-            background-color: #f8fafc;
+            background-color: #fafafa;
         }
 
         .profile-link {
-            color: var(--primary);
+            color: #2563eb;
             text-decoration: none;
             word-break: break-all;
             font-weight: 500;
@@ -183,17 +206,18 @@
             text-decoration: underline;
         }
 
+        /* Editable Sub-elements Grid */
         .cell-input {
             width: 100%;
-            height: 34px;
-            padding: 0 10px;
+            height: 30px;
+            padding: 0 8px;
             border: 1px solid transparent;
             background-color: transparent;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 4px;
+            font-size: 13px;
             font-family: inherit;
             color: var(--text-main);
-            transition: all 0.15s ease;
+            transition: all 0.1s ease;
         }
 
         .cell-input:hover {
@@ -204,22 +228,21 @@
         .cell-input:focus {
             border-color: var(--border-focus);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
             outline: none;
         }
 
         .cell-select {
             width: 100%;
-            height: 34px;
-            padding: 0 6px;
+            height: 30px;
+            padding: 0 4px;
             border: 1px solid transparent;
             background-color: transparent;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 4px;
+            font-size: 13px;
             font-family: inherit;
             cursor: pointer;
             color: var(--text-main);
-            transition: all 0.15s ease;
+            transition: all 0.1s ease;
         }
 
         .cell-select:hover {
@@ -234,9 +257,9 @@
 
         .status-badge {
             display: inline-block;
-            padding: 4px 10px;
+            padding: 2px 8px;
             border-radius: 9999px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             text-align: center;
             appearance: none;
@@ -259,8 +282,7 @@
 
 <div class="container">
     <header>
-        <h1>Influencer Outreach Master Log</h1>
-        <p>Internal centralized database tracking for company PR communications and workflow management</p>
+        <h1>Influencer Outreach Log</h1>
     </header>
 
     <div class="form-panel">
@@ -268,7 +290,7 @@
         <form id="influencerForm" class="form-grid">
             <div class="form-group">
                 <label for="infName">Influencer Name</label>
-                <input type="text" id="infName" placeholder="Username or actual name" required>
+                <input type="text" id="infName" placeholder="Username or name" required>
             </div>
             <div class="form-group">
                 <label for="infLink">Profile Link</label>
@@ -279,8 +301,8 @@
                 <input type="text" id="sourcerName" placeholder="PR Rep Name" required>
             </div>
             <div class="form-group">
-                <label for="infContact">Contact Info (Optional)</label>
-                <input type="text" id="infContact" placeholder="Phone, WhatsApp or email">
+                <label for="infContact">Contact Info</label>
+                <input type="text" id="infContact" placeholder="Phone or email">
             </div>
             <div class="form-group">
                 <label for="initialStatus">Outreach Status</label>
@@ -301,13 +323,12 @@
                     <th style="width: 25%;">Profile Link</th>
                     <th style="width: 15%;">Sourcer</th>
                     <th style="width: 13%;">Outreach Status</th>
-                    <th style="width: 14%;">Contact Info (Open Field)</th>
+                    <th style="width: 14%;">Contact Info</th>
                     <th style="width: 13%;">Follow-Up Outcome</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <!-- Javascript Data Output Target -->
-            </tbody>
+                </tbody>
         </table>
     </div>
 </div>
@@ -334,7 +355,6 @@
         }
     ];
 
-    // Safe, crash-proof Local Storage implementation
     let masterDataMatrix = baselineMockData;
     try {
         const savedData = localStorage.getItem('prInfluencerLogs');
@@ -342,15 +362,13 @@
             masterDataMatrix = JSON.parse(savedData);
         }
     } catch (error) {
-        console.warn("Storage security policy restriction detected. Defaulting to safe volatile memory configuration.", error);
+        console.warn("Storage security policy restriction detected.", error);
     }
 
     function commitStateToStorage() {
         try {
             localStorage.setItem('prInfluencerLogs', JSON.stringify(masterDataMatrix));
-        } catch (error) {
-            // Fails silently if storage access rules are denied
-        }
+        } catch (error) {}
     }
 
     const tableBody = document.getElementById('tableBody');
@@ -375,7 +393,7 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="cell-input" value="${escapeDataStrings(item.contact)}" placeholder="Type contact detail..." oninput="modifyRowContact(${item.id}, this.value)">
+                    <input type="text" class="cell-input" value="${escapeDataStrings(item.contact)}" placeholder="Add details..." oninput="modifyRowContact(${item.id}, this.value)">
                 </td>
                 <td>
                     <select class="cell-select" onchange="modifyRowOutcome(${item.id}, this.value)">
@@ -447,9 +465,10 @@
                                 .replace(/'/g, "&#039;");
     }
 
-    // Execute safe draw sequence
     renderDatabaseGrid(masterDataMatrix);
 </script>
 
 </body>
 </html>
+
+```
