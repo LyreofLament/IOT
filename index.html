@@ -15,7 +15,6 @@
             --primary: #4f46e5;
             --primary-hover: #4338ca;
             
-            /* Modern Tailwind-inspired Status Colors */
             --status-to-contact: #ffedd5;
             --status-to-contact-text: #b45309;
             --status-contacted: #dbeafe;
@@ -59,7 +58,6 @@
             margin-top: 6px;
         }
 
-        /* SaaS Style Input Panel */
         .form-panel {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -133,7 +131,6 @@
             background-color: var(--primary-hover);
         }
 
-        /* Modern Spreadsheet Grid Component */
         .table-container {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -162,4 +159,297 @@
 
         td {
             padding: 12px 20px;
-            border-bottom: 1px solid
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+            color: var(--text-main);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .profile-link {
+            color: var(--primary);
+            text-decoration: none;
+            word-break: break-all;
+            font-weight: 500;
+        }
+
+        .profile-link:hover {
+            text-decoration: underline;
+        }
+
+        .cell-input {
+            width: 100%;
+            height: 34px;
+            padding: 0 10px;
+            border: 1px solid transparent;
+            background-color: transparent;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-main);
+            transition: all 0.15s ease;
+        }
+
+        .cell-input:hover {
+            border-color: var(--border-color);
+            background-color: #fff;
+        }
+
+        .cell-input:focus {
+            border-color: var(--border-focus);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+            outline: none;
+        }
+
+        .cell-select {
+            width: 100%;
+            height: 34px;
+            padding: 0 6px;
+            border: 1px solid transparent;
+            background-color: transparent;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: all 0.15s ease;
+        }
+
+        .cell-select:hover {
+            border-color: var(--border-color);
+            background-color: #fff;
+        }
+
+        .cell-select:focus {
+            border-color: var(--border-focus);
+            outline: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            appearance: none;
+            -webkit-appearance: none;
+            border: 1px solid transparent;
+        }
+
+        .status-to-contact {
+            background-color: var(--status-to-contact);
+            color: var(--status-to-contact-text);
+        }
+
+        .status-contacted {
+            background-color: var(--status-contacted);
+            color: var(--status-contacted-text);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Influencer Outreach Master Log</h1>
+        <p>Internal centralized database tracking for company PR communications and workflow management</p>
+    </header>
+
+    <div class="form-panel">
+        <h2>Add Profile</h2>
+        <form id="influencerForm" class="form-grid">
+            <div class="form-group">
+                <label for="infName">Influencer Name</label>
+                <input type="text" id="infName" placeholder="Username or actual name" required>
+            </div>
+            <div class="form-group">
+                <label for="infLink">Profile Link</label>
+                <input type="url" id="infLink" placeholder="https://instagram.com/..." required>
+            </div>
+            <div class="form-group">
+                <label for="sourcerName">Sourcer Name</label>
+                <input type="text" id="sourcerName" placeholder="PR Rep Name" required>
+            </div>
+            <div class="form-group">
+                <label for="infContact">Contact Info (Optional)</label>
+                <input type="text" id="infContact" placeholder="Phone, WhatsApp or email">
+            </div>
+            <div class="form-group">
+                <label for="initialStatus">Outreach Status</label>
+                <select id="initialStatus">
+                    <option value="To Contact">To Contact</option>
+                    <option value="Contacted">Contacted</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Add Profile</button>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Influencer Name</th>
+                    <th style="width: 25%;">Profile Link</th>
+                    <th style="width: 15%;">Sourcer</th>
+                    <th style="width: 13%;">Outreach Status</th>
+                    <th style="width: 14%;">Contact Info (Open Field)</th>
+                    <th style="width: 13%;">Follow-Up Outcome</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Javascript Data Output Target -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const baselineMockData = [
+        {
+            id: 1,
+            name: "Alpha Creator",
+            link: "https://instagram.com/alphacreator",
+            sourcer: "Sarah Jenkins",
+            status: "Contacted",
+            contact: "+1-555-0192",
+            outcome: "Accepted"
+        },
+        {
+            id: 2,
+            name: "Zen Design Studio",
+            link: "https://instagram.com/zendesign",
+            sourcer: "David Lee",
+            status: "To Contact",
+            contact: "",
+            outcome: "Pending"
+        }
+    ];
+
+    // Safe, crash-proof Local Storage implementation
+    let masterDataMatrix = baselineMockData;
+    try {
+        const savedData = localStorage.getItem('prInfluencerLogs');
+        if (savedData) {
+            masterDataMatrix = JSON.parse(savedData);
+        }
+    } catch (error) {
+        console.warn("Storage security policy restriction detected. Defaulting to safe volatile memory configuration.", error);
+    }
+
+    function commitStateToStorage() {
+        try {
+            localStorage.setItem('prInfluencerLogs', JSON.stringify(masterDataMatrix));
+        } catch (error) {
+            // Fails silently if storage access rules are denied
+        }
+    }
+
+    const tableBody = document.getElementById('tableBody');
+    const influencerForm = document.getElementById('influencerForm');
+
+    function renderDatabaseGrid(data) {
+        if (!tableBody) return;
+        tableBody.innerHTML = '';
+        
+        data.forEach(item => {
+            const rowElement = document.createElement('tr');
+            const statusStyleClass = item.status === 'To Contact' ? 'status-to-contact' : 'status-contacted';
+
+            rowElement.innerHTML = `
+                <td><strong>${escapeDataStrings(item.name)}</strong></td>
+                <td><a href="${escapeDataStrings(item.link)}" target="_blank" class="profile-link">${escapeDataStrings(item.link)}</a></td>
+                <td>${escapeDataStrings(item.sourcer)}</td>
+                <td>
+                    <select class="cell-select status-badge ${statusStyleClass}" onchange="modifyRowStatus(${item.id}, this.value)">
+                        <option value="To Contact" ${item.status === 'To Contact' ? 'selected' : ''}>To Contact</option>
+                        <option value="Contacted" ${item.status === 'Contacted' ? 'selected' : ''}>Contacted</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="cell-input" value="${escapeDataStrings(item.contact)}" placeholder="Type contact detail..." oninput="modifyRowContact(${item.id}, this.value)">
+                </td>
+                <td>
+                    <select class="cell-select" onchange="modifyRowOutcome(${item.id}, this.value)">
+                        <option value="Pending" ${item.outcome === 'Pending' ? 'selected' : ''}>Pending</option>
+                        <option value="Accepted" ${item.outcome === 'Accepted' ? 'selected' : ''}>Accepted</option>
+                        <option value="Rejected" ${item.outcome === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                    </select>
+                </td>
+            `;
+            tableBody.appendChild(rowElement);
+        });
+    }
+
+    function modifyRowContact(id, textInput) {
+        const targetRecord = masterDataMatrix.find(record => record.id === id);
+        if (targetRecord) {
+            targetRecord.contact = textInput;
+            commitStateToStorage();
+        }
+    }
+
+    function modifyRowStatus(id, selectedValue) {
+        const targetRecord = masterDataMatrix.find(record => record.id === id);
+        if (targetRecord) {
+            targetRecord.status = selectedValue;
+            commitStateToStorage();
+            renderDatabaseGrid(masterDataMatrix); 
+        }
+    }
+
+    function modifyRowOutcome(id, selectedValue) {
+        const targetRecord = masterDataMatrix.find(record => record.id === id);
+        if (targetRecord) {
+            targetRecord.outcome = selectedValue;
+            commitStateToStorage();
+        }
+    }
+
+    if (influencerForm) {
+        influencerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const generatedRecord = {
+                id: Date.now(), 
+                name: document.getElementById('infName').value,
+                link: document.getElementById('infLink').value,
+                sourcer: document.getElementById('sourcerName').value,
+                contact: document.getElementById('infContact').value,
+                status: document.getElementById('initialStatus').value,
+                outcome: "Pending"
+            };
+
+            masterDataMatrix.unshift(generatedRecord); 
+            commitStateToStorage();
+            renderDatabaseGrid(masterDataMatrix);
+            
+            document.getElementById('infName').value = '';
+            document.getElementById('infLink').value = '';
+            document.getElementById('infContact').value = '';
+        });
+    }
+
+    function escapeDataStrings(rawString) {
+        if (!rawString) return "";
+        return String(rawString).replace(/&/g, "&amp;")
+                                .replace(/</g, "&lt;")
+                                .replace(/>/g, "&gt;")
+                                .replace(/"/g, "&quot;")
+                                .replace(/'/g, "&#039;");
+    }
+
+    // Execute safe draw sequence
+    renderDatabaseGrid(masterDataMatrix);
+</script>
+
+</body>
+</html>
