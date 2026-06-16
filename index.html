@@ -21,322 +21,60 @@
             --status-contacted-text: #2563eb;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body {
-            height: 100%;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            font-family: "Neue Haas Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            overflow: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        header {
-            margin-bottom: 16px;
-            flex: 0 0 auto;
-        }
-
-        header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: -0.03em;
-        }
-
-        /* Top Registration Panel */
-        .form-panel {
-            flex: 0 0 auto;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .form-panel h2 {
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(5, minmax(140px, 1fr)) auto;
-            gap: 12px;
-            align-items: flex-end;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-group label {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-main);
-            letter-spacing: -0.01em;
-        }
-
-        .form-group input, .form-group select {
-            height: 36px;
-            padding: 0 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            outline: none;
-            background-color: #fff;
-            color: var(--text-main);
-            font-family: inherit;
-            transition: all 0.15s ease-in-out;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--border-focus);
-            box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.05);
-        }
-
-        .btn-submit {
-            height: 36px;
-            padding: 0 24px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            transition: background-color 0.15s ease-in-out;
-            white-space: nowrap;
-        }
-
-        .btn-submit:hover {
-            background-color: var(--primary-hover);
-        }
-
-        /* Filter and Search Bar */
-        .controls-bar {
-            flex: 0 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            gap: 16px;
-        }
-
-        .search-container {
-            flex: 1;
-            max-width: 400px;
-        }
-
-        .search-container input {
-            width: 100%;
-            height: 36px;
-            padding: 0 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            outline: none;
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            font-family: inherit;
-            transition: all 0.15s ease-in-out;
-        }
-
-        .search-container input:focus {
-            border-color: var(--border-focus);
-            box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.05);
-        }
-
-        .filters-container {
-            display: flex;
-            gap: 12px;
-        }
-
-        .filters-container select {
-            height: 36px;
-            padding: 0 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            outline: none;
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        /* Spreadsheet Grid */
-        .table-container {
-            flex: 1 1 auto;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow-y: auto;
-            overflow-x: auto;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01), 0 2px 4px -2px rgba(0, 0, 0, 0.01);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 13px;
-        }
-
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        th {
-            background-color: #fcfcfc;
-            color: var(--text-muted);
-            font-weight: 600;
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
-            text-transform: uppercase;
-            font-size: 10px;
-            letter-spacing: 0.05em;
-        }
-
-        td {
-            padding: 10px 16px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-            color: var(--text-main);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover {
-            background-color: #fafafa;
-        }
-
-        .profile-link {
-            color: #2563eb;
-            text-decoration: none;
-            word-break: break-all;
-            font-weight: 500;
-        }
-
-        .profile-link:hover {
-            text-decoration: underline;
-        }
-
-        .cell-input {
-            width: 100%;
-            height: 30px;
-            padding: 0 8px;
-            border: 1px solid transparent;
-            background-color: transparent;
-            border-radius: 4px;
-            font-size: 13px;
-            font-family: inherit;
-            color: var(--text-main);
-            transition: all 0.1s ease;
-        }
-
-        .cell-input:hover {
-            border-color: var(--border-color);
-            background-color: #fff;
-        }
-
-        .cell-input:focus {
-            border-color: var(--border-focus);
-            background-color: #fff;
-            outline: none;
-        }
-
-        .cell-select {
-            width: 100%;
-            height: 30px;
-            padding: 0 4px;
-            border: 1px solid transparent;
-            background-color: transparent;
-            border-radius: 4px;
-            font-size: 13px;
-            font-family: inherit;
-            cursor: pointer;
-            color: var(--text-main);
-            transition: all 0.1s ease;
-        }
-
-        .cell-select:hover {
-            border-color: var(--border-color);
-            background-color: #fff;
-        }
-
-        .cell-select:focus {
-            border-color: var(--border-focus);
-            outline: none;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 9999px;
-            font-size: 11px;
-            font-weight: 600;
-            text-align: center;
-            appearance: none;
-            -webkit-appearance: none;
-            border: 1px solid transparent;
-        }
-
-        .status-to-contact {
-            background-color: var(--status-to-contact);
-            color: var(--status-to-contact-text);
-        }
-
-        .status-contacted {
-            background-color: var(--status-contacted);
-            color: var(--status-contacted-text);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; background-color: var(--bg-color); color: var(--text-main); -webkit-font-smoothing: antialiased; }
+        body { font-family: "Neue Haas Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif; display: flex; flex-direction: column; padding: 24px; overflow: hidden; }
         
-        .sno-col {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+        .container { width: 100%; max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; height: 100%; }
+        header { margin-bottom: 16px; flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 24px; font-weight: 700; color: var(--text-main); letter-spacing: -0.03em; }
+        
+        .sync-status { font-size: 12px; font-weight: 500; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+        .sync-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; }
+        .sync-dot.syncing { background-color: #eab308; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
+        .form-panel { flex: 0 0 auto; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02); }
+        .form-panel h2 { font-size: 11px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+        .form-grid { display: grid; grid-template-columns: repeat(5, minmax(140px, 1fr)) auto; gap: 12px; align-items: flex-end; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 11px; font-weight: 600; color: var(--text-main); letter-spacing: -0.01em; }
+        .form-group input, .form-group select { height: 36px; padding: 0 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; outline: none; background-color: #fff; color: var(--text-main); font-family: inherit; transition: all 0.15s ease-in-out; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.05); }
+        
+        .btn-submit { height: 36px; padding: 0 24px; background-color: var(--primary); color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; transition: background-color 0.15s ease-in-out; white-space: nowrap; }
+        .btn-submit:hover { background-color: var(--primary-hover); }
+        .btn-submit:disabled { background-color: var(--text-muted); cursor: not-allowed; }
+
+        .controls-bar { flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 16px; }
+        .search-container { flex: 1; max-width: 400px; }
+        .search-container input { width: 100%; height: 36px; padding: 0 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; outline: none; background-color: var(--card-bg); color: var(--text-main); font-family: inherit; transition: all 0.15s ease-in-out; }
+        .search-container input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.05); }
+        .filters-container { display: flex; gap: 12px; }
+        .filters-container select { height: 36px; padding: 0 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; outline: none; background-color: var(--card-bg); color: var(--text-main); font-family: inherit; cursor: pointer; }
+
+        .table-container { flex: 1 1 auto; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow-y: auto; overflow-x: auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01), 0 2px 4px -2px rgba(0, 0, 0, 0.01); }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        thead { position: sticky; top: 0; z-index: 10; }
+        th { background-color: #fcfcfc; color: var(--text-muted); font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--border-color); text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+        td { padding: 10px 16px; border-bottom: 1px solid var(--border-color); vertical-align: middle; color: var(--text-main); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #fafafa; }
+        
+        .profile-link { color: #2563eb; text-decoration: none; word-break: break-all; font-weight: 500; }
+        .profile-link:hover { text-decoration: underline; }
+        .cell-input { width: 100%; height: 30px; padding: 0 8px; border: 1px solid transparent; background-color: transparent; border-radius: 4px; font-size: 13px; font-family: inherit; color: var(--text-main); transition: all 0.1s ease; }
+        .cell-input:hover { border-color: var(--border-color); background-color: #fff; }
+        .cell-input:focus { border-color: var(--border-focus); background-color: #fff; outline: none; }
+        .cell-select { width: 100%; height: 30px; padding: 0 4px; border: 1px solid transparent; background-color: transparent; border-radius: 4px; font-size: 13px; font-family: inherit; cursor: pointer; color: var(--text-main); transition: all 0.1s ease; }
+        .cell-select:hover { border-color: var(--border-color); background-color: #fff; }
+        .cell-select:focus { border-color: var(--border-focus); outline: none; }
+        
+        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; text-align: center; appearance: none; -webkit-appearance: none; border: 1px solid transparent; }
+        .status-to-contact { background-color: var(--status-to-contact); color: var(--status-to-contact-text); }
+        .status-contacted { background-color: var(--status-contacted); color: var(--status-contacted-text); }
+        .sno-col { color: var(--text-muted); font-weight: 500; }
+        .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
     </style>
 </head>
 <body>
@@ -344,9 +82,12 @@
 <div class="container">
     <header>
         <h1>Influencer Outreach Log</h1>
+        <div class="sync-status" id="syncStatus">
+            <div class="sync-dot" id="syncDot"></div>
+            <span id="syncText">System Ready</span>
+        </div>
     </header>
 
-    <!-- Top Profile Registration Interface -->
     <div class="form-panel">
         <h2>Add Profile</h2>
         <form id="influencerForm" class="form-grid">
@@ -373,11 +114,10 @@
                     <option value="Contacted">Contacted</option>
                 </select>
             </div>
-            <button type="submit" class="btn-submit">Add Profile</button>
+            <button type="submit" id="submitBtn" class="btn-submit">Add Profile</button>
         </form>
     </div>
 
-    <!-- Search and Filter Navigation Bar -->
     <div class="controls-bar">
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search influencers, sourcers, or contacts...">
@@ -397,7 +137,6 @@
         </div>
     </div>
 
-    <!-- Central Data Spreadsheet Grid -->
     <div class="table-container">
         <table>
             <thead>
@@ -413,69 +152,75 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <!-- Data renders here -->
+                <tr><td colspan="8" class="empty-state">Loading database from cloud...</td></tr>
             </tbody>
         </table>
     </div>
 </div>
 
 <script>
-    const baselineMockData = [
-        {
-            id: 2,
-            name: "Zen Design Studio",
-            link: "https://instagram.com/zendesign",
-            sourcer: "David Lee",
-            status: "To Contact",
-            date: "2026-06-16",
-            contact: "",
-            outcome: "Pending"
-        },
-        {
-            id: 1,
-            name: "Alpha Creator",
-            link: "https://instagram.com/alphacreator",
-            sourcer: "Sarah Jenkins",
-            status: "Contacted",
-            date: "2026-06-15",
-            contact: "+1-555-0192",
-            outcome: "Accepted"
-        }
-    ];
+    // --- IMPORTANT: PASTE YOUR APP SCRIPT DEPLOYMENT URL HERE ---
+    const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbw5sKBsyMylxdbzl-o_aO6nDVPmr_XJBiORnbpJgmzE8C0aFHTLCAL7OIkweGuVKUYv/exec";
 
-    // Robust Initialization Block ensuring data survival
     let masterDataMatrix = [];
-    try {
-        const savedData = localStorage.getItem('prInfluencerLogs');
-        if (savedData && savedData !== "undefined" && savedData !== "[]") {
-            masterDataMatrix = JSON.parse(savedData);
-        } else {
-            masterDataMatrix = [...baselineMockData];
-        }
-    } catch (error) {
-        console.error("Storage parsing failed. Falling back to default data.", error);
-        masterDataMatrix = [...baselineMockData];
-    }
-
-    function commitStateToStorage() {
-        try {
-            localStorage.setItem('prInfluencerLogs', JSON.stringify(masterDataMatrix));
-        } catch (error) {
-            console.error("Failed to commit data to local storage", error);
-        }
-    }
-
     const tableBody = document.getElementById('tableBody');
     const influencerForm = document.getElementById('influencerForm');
-    
+    const submitBtn = document.getElementById('submitBtn');
     const searchInput = document.getElementById('searchInput');
     const filterStatus = document.getElementById('filterStatus');
     const filterOutcome = document.getElementById('filterOutcome');
+    const syncDot = document.getElementById('syncDot');
+    const syncText = document.getElementById('syncText');
 
-    // Attach real-time filter listeners
     searchInput.addEventListener('input', executeFilters);
     filterStatus.addEventListener('change', executeFilters);
     filterOutcome.addEventListener('change', executeFilters);
+
+    function setSyncState(isSyncing) {
+        if(isSyncing) {
+            syncDot.classList.add('syncing');
+            syncText.innerText = 'Syncing...';
+            submitBtn.disabled = true;
+        } else {
+            syncDot.classList.remove('syncing');
+            syncText.innerText = 'Synced to Cloud';
+            submitBtn.disabled = false;
+        }
+    }
+
+    async function loadDatabase() {
+        if(GOOGLE_APP_URL === "YOUR_WEB_APP_URL_HERE") {
+            tableBody.innerHTML = `<tr><td colspan="8" class="empty-state" style="color: red;">Error: Please insert your Google App URL in the code.</td></tr>`;
+            return;
+        }
+        
+        try {
+            setSyncState(true);
+            const response = await fetch(GOOGLE_APP_URL);
+            masterDataMatrix = await response.json();
+            executeFilters();
+            setSyncState(false);
+        } catch (error) {
+            tableBody.innerHTML = `<tr><td colspan="8" class="empty-state">Failed to load database. Check network connection.</td></tr>`;
+            setSyncState(false);
+        }
+    }
+
+    async function updateDatabaseRecord(action, data) {
+        setSyncState(true);
+        try {
+            await fetch(GOOGLE_APP_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: action, data: data }),
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+            });
+            setSyncState(false);
+        } catch (error) {
+            console.error("Database update failed", error);
+            syncText.innerText = 'Sync Failed - Retrying later';
+            syncDot.style.backgroundColor = '#ef4444';
+        }
+    }
 
     function executeFilters() {
         const searchTerm = searchInput.value.toLowerCase();
@@ -511,11 +256,9 @@
             const rowElement = document.createElement('tr');
             const statusStyleClass = item.status === 'To Contact' ? 'status-to-contact' : 'status-contacted';
             
-            // Absolute Serial Number calculation ensures the oldest item remains S.No. 1 regardless of filters
             const absoluteIndex = masterDataMatrix.findIndex(record => record.id === item.id);
             const computedSerialNumber = totalMasterCount - absoluteIndex;
             
-            // Handles rendering optional profile links
             const linkCellHTML = item.link 
                 ? `<a href="${escapeDataStrings(item.link)}" target="_blank" class="profile-link">${escapeDataStrings(item.link)}</a>`
                 : `<span style="color: var(--text-muted);">-</span>`;
@@ -526,19 +269,19 @@
                 <td>${linkCellHTML}</td>
                 <td>${escapeDataStrings(item.sourcer)}</td>
                 <td>
-                    <select class="cell-select status-badge ${statusStyleClass}" onchange="modifyRowStatus(${item.id}, this.value)">
+                    <select class="cell-select status-badge ${statusStyleClass}" onchange="modifyRowField('${item.id}', 'status', this.value)">
                         <option value="To Contact" ${item.status === 'To Contact' ? 'selected' : ''}>To Contact</option>
                         <option value="Contacted" ${item.status === 'Contacted' ? 'selected' : ''}>Contacted</option>
                     </select>
                 </td>
                 <td>
-                    <input type="date" class="cell-input" value="${item.date || ''}" onchange="modifyRowDate(${item.id}, this.value)">
+                    <input type="date" class="cell-input" value="${item.date || ''}" onchange="modifyRowField('${item.id}', 'date', this.value)">
                 </td>
                 <td>
-                    <input type="text" class="cell-input" value="${escapeDataStrings(item.contact)}" placeholder="Add details..." oninput="modifyRowContact(${item.id}, this.value)">
+                    <input type="text" class="cell-input" value="${escapeDataStrings(item.contact)}" placeholder="Add details..." onchange="modifyRowField('${item.id}', 'contact', this.value)">
                 </td>
                 <td>
-                    <select class="cell-select" onchange="modifyRowOutcome(${item.id}, this.value)">
+                    <select class="cell-select" onchange="modifyRowField('${item.id}', 'outcome', this.value)">
                         <option value="Pending" ${item.outcome === 'Pending' ? 'selected' : ''}>Pending</option>
                         <option value="Accepted" ${item.outcome === 'Accepted' ? 'selected' : ''}>Accepted</option>
                         <option value="Rejected" ${item.outcome === 'Rejected' ? 'selected' : ''}>Rejected</option>
@@ -549,37 +292,12 @@
         });
     }
 
-    function modifyRowContact(id, textInput) {
-        const targetRecord = masterDataMatrix.find(record => record.id === id);
+    function modifyRowField(id, fieldName, newValue) {
+        const targetRecord = masterDataMatrix.find(record => String(record.id) === String(id));
         if (targetRecord) {
-            targetRecord.contact = textInput;
-            commitStateToStorage();
-        }
-    }
-
-    function modifyRowDate(id, dateInput) {
-        const targetRecord = masterDataMatrix.find(record => record.id === id);
-        if (targetRecord) {
-            targetRecord.date = dateInput;
-            commitStateToStorage();
-        }
-    }
-
-    function modifyRowStatus(id, selectedValue) {
-        const targetRecord = masterDataMatrix.find(record => record.id === id);
-        if (targetRecord) {
-            targetRecord.status = selectedValue;
-            commitStateToStorage();
-            executeFilters(); // Refreshes UI based on active filters
-        }
-    }
-
-    function modifyRowOutcome(id, selectedValue) {
-        const targetRecord = masterDataMatrix.find(record => record.id === id);
-        if (targetRecord) {
-            targetRecord.outcome = selectedValue;
-            commitStateToStorage();
-            executeFilters();
+            targetRecord[fieldName] = newValue;
+            executeFilters(); // Update UI immediately (Optimistic rendering)
+            updateDatabaseRecord("update", targetRecord); // Push to cloud in background
         }
     }
 
@@ -592,7 +310,7 @@
             const formattedCurrentDate = offsetDate.toISOString().split('T')[0];
             
             const generatedRecord = {
-                id: Date.now(), 
+                id: Date.now().toString(), 
                 name: document.getElementById('infName').value,
                 link: document.getElementById('infLink').value,
                 sourcer: document.getElementById('sourcerName').value,
@@ -603,19 +321,18 @@
             };
 
             masterDataMatrix.unshift(generatedRecord); 
-            commitStateToStorage();
             
-            // Reset filters to default state to ensure the new item is immediately visible
             filterStatus.value = 'All';
             filterOutcome.value = 'All';
             searchInput.value = '';
             
             executeFilters();
             
-            // Clear input fields
             document.getElementById('infName').value = '';
             document.getElementById('infLink').value = '';
             document.getElementById('infContact').value = '';
+
+            updateDatabaseRecord("add", generatedRecord);
         });
     }
 
@@ -628,8 +345,8 @@
                                 .replace(/'/g, "&#039;");
     }
 
-    // Initial View Render execution
-    executeFilters();
+    // Initialize application by grabbing data from Google
+    loadDatabase();
 </script>
 
 </body>
